@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requerimento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Botão Exportar para PDF -->
+    <div style="text-align: right; margin: 10px 0;">
+        <button id="btnExportarPDF" type="button" style="padding: 7px 18px; background: transparent; color: #fff; border: none; border-radius: 4px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+            <!-- Ícone PDF SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" viewBox="0 0 24 24" style="margin-right: 5px;">
+                <path d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H6zm7 1.5V9h5.5L13 3.5zM8 13h1.5v6H8v-6zm2.75 0h1.25l1.5 6h-1.1l-.25-1.25h-1.55L10.9 19h-1.1l1.5-6zm.6 3.5h1.3l-.65-3.25-.65 3.25zm3.15-3.5h2.25c.83 0 1.5.67 1.5 1.5v3c0 .83-.67 1.5-1.5 1.5h-2.25v-6zm1.5 1.5v3h.75a.75.75 0 0 0 .75-.75v-1.5a.75.75 0 0 0-.75-.75h-.75z"/>
+            </svg>
+            Exportar para PDF
+        </button>
+    </div>
+    <div class="logo">
+        <img src="https://raw.githubusercontent.com/dancartorio/intuity/main/logo.png" alt="Logotipo do Cartório">
+    </div>
+    <h3>ILMA. SRA. OFICIALA DO 2º REGISTRO DE IMÓVEIS DA COMARCA DE PETROLINA – PE</h3>
+    <form>
+        <!-- Seleção de Tipo de Pessoa -->
+        <fieldset>
+            <legend>Dados do Requerente</legend>
+            <label>Tipo de Requerente:</label>
+            <div style="display: flex; gap: 20px; margin-bottom: 10px;">
+                <label>
+                    <input type="checkbox" id="tipoPessoaFisica" name="tipoPessoa" value="pessoaFisica">
+                    Pessoa Física
+                </label>
+                <label>
+                    <input type="checkbox" id="tipoPessoaJuridica" name="tipoPessoa" value="pessoaJuridica">
+                    Pessoa Jurídica
+                </label>
+            </div>
+            <!-- Dados Pessoa Física -->
+            <div id="dadosPessoaFisica" class="hidden">
+                <h4></h4>
+                <div class="form-group">
+                    <label>NOME: <input type="text" name="nome_pessoa_fisica"></label>
+                    <label>RG: <input type="text" name="rg_pessoa_fisica"></label>
+                    <label>CPF/MF: <input type="text" name="cpf_pessoa_fisica"></label>
+                    <label>ESTADO CIVIL:
+                        <select name="estado_civil_pessoa_fisica">
+                            <option value=""></option>
+                            <option value="solteiro">Solteiro(a)</option>
+                            <option value="casado">Casado(a)</option>
+                            <option value="separado">Separado(a) judicialmente</option>
+                            <option value="divorciado">Divorciado(a)</option>
+                            <option value="viuvo">Viúvo(a)</option>
+                            <option value="uniao_estavel">União Estável</option>
+                            <option value="desquitado">Desquitado(a)</option>
+                        </select>
+                    </label>
+                    <label>PROFISSÃO: <input type="text" name="profissao_pessoa_fisica"></label>
+                    <!-- Pessoa Física -->
+<label>
+    CEP:
+    <input type="text" name="cep_pessoa_fisica" id="cepPessoaFisica" maxlength="9" placeholder="">
+</label>
+<label>
+    RUA:
+    <input type="text" name="rua_pessoa_fisica" id="ruaPessoaFisica" placeholder="">
+</label>
+<label>
+    NÚMERO:
+    <input type="text" name="numero_pessoa_fisica" id="numeroPessoaFisica" placeholder="">
+</label>
+<label>
+    BAIRRO:
+    <input type="text" name="bairro_pessoa_fisica" id="bairroPessoaFisica" placeholder="">
+</label>
+<label>
+    CIDADE/UF:
+    <input type="text" name="cidade_uf_pessoa_fisica" id="cidadeUfPessoaFisica" placeholder="">
+</label>
+                </div>
+            </div>
+
+            <!-- Dados Pessoa Jurídica -->
+            <div id="dadosPessoaJuridica" class="hidden">
+                <h4></h4>
+                <div class="form-group">
+                    <label>NOME: <input type="text" name="nome_pessoa_juridica"></label>
+                    <label>CNPJ/MF: <input type="text" name="cnpj_pessoa_juridica"></label>
+                    <label>MUNICÍPIO/UF DA SEDE: <input type="text" name="municipio_uf_sede"></label>
+                </div>
+            </div>
+
+            <!-- Checkbox para representante -->
+            <div>
+                <label>
+                    <input type="checkbox" id="possuiRepresentante">
+                    Possui representante?
+                </label>
+            </div>
+
+            <!-- Dados do Representante -->
+            <div id="dadosRepresentante" class="hidden">
+                <h4></h4>
+                <div class="form-group">
+                    <label>NOME: <input type="text" name="nome_representante"></label>
+                    <label>RG: <input type="text" name="rg_representante"></label>
+                    <label>CPF/MF: <input type="text" id="cpfRepresentante" name="cpf_representante"></label>
+                    <label>ESTADO CIVIL:
+                        <select name="estado_civil_representante">
+                            <option value=""></option>
+                            <option value="solteiro">Solteiro(a)</option>
+                            <option value="casado">Casado(a)</option>
+                            <option value="separado">Separado(a) judicialmente</option>
+                            <option value="divorciado">Divorciado(a)</option>
+                            <option value="viuvo">Viúvo(a)</option>
+                            <option value="uniao_estavel">União Estável</option>
+                            <option value="desquitado">Desquitado(a)</option>
+                        </select>
+                    </label>
+                    <label>PROFISSÃO: <input type="text" name="profissao_representante"></label>
+                    <!-- Representante -->
+<label>
+    CEP:
+    <input type="text" name="cep_representante" id="cepRepresentante" maxlength="9" placeholder="">
+</label>
+<label>
+    RUA:
+    <input type="text" name="rua_representante" id="ruaRepresentante" placeholder="">
+</label>
+<label>
+    NÚMERO:
+    <input type="text" name="numero_representante" id="numeroRepresentante" placeholder="">
+</label>
+<label>
+    BAIRRO:
+    <input type="text" name="bairro_representante" id="bairroRepresentante" placeholder="">
+</label>
+<label>
+    CIDADE/UF:
+    <input type="text" name="cidade_uf_representante" id="cidadeUfRepresentante" placeholder="">
+</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Seleção de Tipo de Averbação -->
+        <fieldset>
+            <legend>Averbações</legend>
+            <div style="display: flex; align-items: flex-end; gap: 10px;">
+                <div style="display: flex; flex-direction: column;">
+                    <select id="tipoAverbacao" name="tipoAverbacao" style="width: 350px; border: none; background-color: #555; color: #fff;">
+                        <option value=""></option>
+                        <option value="matricula">Matrícula desta 2ª Serventia</option>
+                        <option value="imovel">Matrícula oriunda da 1ª Serventia</option>
+                        <option value="proprietario">Proprietário</option>
+                    </select>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <label for="numeroMatricula" style="margin-bottom: 0; margin-right: 5px;">Nº Matrícula(s):</label>
+                    <input type="text" id="numeroMatricula" name="numeroMatricula" maxlength="100" style="width: 200px; margin-top: 0; border: none; background-color: #555; color: #fff;" placeholder="">
+                </div>
+            </div>
+
+            <!-- Opções específicas de Matrícula -->
+            <div id="averbacaoMatricula" class="checkbox-group hidden">
+                <label><input type="checkbox" name="averbacoes" value="todas"> Todas as averbações necessárias ao aperfeiçoamento da matrícula.</label>
+                <label><input type="checkbox" name="averbacoes" value="logradouro"> Logradouro</label>
+                <label><input type="checkbox" name="averbacoes" value="alteracao_inclusao_bairro"> Alteração/Inclusão do bairro</label>
+                <label><input type="checkbox" name="averbacoes" value="inscricao_municipal"> Inscrição Municipal/Cadastro Imobiliário</label>
+                <label><input type="checkbox" name="averbacoes" value="ccir_incra"> CCIR-INCRA</label>
+                <label><input type="checkbox" name="averbacoes" value="car"> CAR</label>
+                <label><input type="checkbox" name="averbacoes" value="descricao_fisica"> Descrição Física (Georeferenciamento)</label>
+                <label><input type="checkbox" name="averbacoes" value="limites_confrontacoes"> Limites e Confrontações</label>
+                <label><input type="checkbox" name="averbacoes" value="inclusao_area_terreno"> Inclusão da Área do Terreno</label>
+                <label><input type="checkbox" name="averbacoes" value="estado_civil"> Estado Civil</label>
+                <label><input type="checkbox" name="averbacoes" value="regime_bens"> Regime de Bens</label>
+                <label><input type="checkbox" name="averbacoes" value="pacto_antenupcial"> Pacto Antenupcial</label>
+                <label><input type="checkbox" name="averbacoes" value="inclusao_correcao_cpf"> Inclusão/Correção de CPF/MF</label>
+                <label><input type="checkbox" name="averbacoes" value="inclusao_correcao_documento"> Inclusão/Correção de Documento de Identificação</label>
+                <label><input type="checkbox" name="averbacoes" value="correcao_nome"> Correção de Nome</label>
+                <label><input type="checkbox" name="averbacoes" value="edificacao_construcao"> Edificação/construção</label>
+                <label><input type="checkbox" name="averbacoes" value="desmembramento"> Desmembramento em&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unidades</label>
+                <label><input type="checkbox" name="averbacoes" value="remembramento"> Remembramento dos imóveis constantes das matrículas:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label><input type="checkbox" name="averbacoes" value="demolicao"> Reforma/Demolição, cuja descrição encontra-se na documentação acostada.</label>
+                <label><input type="checkbox" name="averbacoes" value="cancelamento"> Comunicação e Cancelamento do Ônus disposto no R-&nbsp;&nbsp;&nbsp;&nbsp;&nbspe/ou AV-</label>
+                <label><input type="checkbox" name="averbacoes" value="cancelamento_onus"> Cancelamento do Ônus disposto no R-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e/ou AV- </label>
+                <label><input type="checkbox" name="averbacoes" value="retificacao_area"> Retificação de Área</label>
+                <label><input type="checkbox" name="averbacoes" value="outras"> Outros (descrever): </label>
+            </div>
+
+            <!-- Opções específicas de Imóvel -->
+            <div id="averbacaoImovel" class="checkbox-group hidden">
+                <label><input type="checkbox" name="averbacoes" value="ccir"> CCIR-INCRA</label>
+                <label><input type="checkbox" name="averbacoes" value="car"> CAR</label>
+            </div>
+
+            <!-- Opções específicas de Proprietário -->
+            <div id="averbacaoProprietario" class="checkbox-group hidden">
+                <label><input type="checkbox" name="averbacoes" value="estado_civil"> Estado Civil</label>
+                <label><input type="checkbox" name="averbacoes" value="regime_bens"> Regime de Bens</label>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <strong>CERTIFICO</strong> que o presente documento foi assinado, pelo usuário, em minha presença, com base no que prevê o § 3º do art. 1.149 do Código de Normas de Pernambuco.<br><br>
+            <strong>Colaborador(a):________________________________________<br></strong>
+            <strong>Data:_____/_____/__________</strong>
+        </fieldset>
+    </form>
+
+    <!-- Parte das instruções e certificação no final da página -->
+    <div class="footer">
+        <br>
+        <div class="instrucao">
+            <h4>INSTRUÇÕES PARA PREENCHIMENTO:</h4>
+            <ol>
+                <li>Deverá ser providenciado o reconhecimento da firma de quem subscrever o requerimento;</li>
+                <br>
+                <li>Na hipótese do reconhecimento da firma não se efetivar na comarca de Petrolina, deverá ser providenciado o reconhecimento da firma do preposto do cartório (que subscreveu o reconhecimento) na comarca de Petrolina (“sinal público”);</li>
+                <br>
+                <li>Tratando-se de requerimento formalizado por pessoa jurídica, deverá ser apresentada prova de sua representação daquele que o subscrever, em forma de cópia autenticada (instrumentos de constituição de sociedade, alteração contratual, estatuto social, ata de assembleia);</li>
+                <br>
+                <li>Tratando-se de requerimento formalizado por procurador, deverá ser apresentado o instrumento de mandato, em forma de cópia autenticada (procuração – substabelecimento), com poderes especiais, nos termos do art. 661, §1º do Código Civil.</li>
+                <br>
+            </ol>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

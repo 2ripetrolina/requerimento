@@ -1,0 +1,212 @@
+// Alternância de Pessoa Física/Jurídica
+document.getElementById('tipoPessoaFisica').addEventListener('change', function() {
+    const fisica = document.getElementById('dadosPessoaFisica');
+    const juridica = document.getElementById('dadosPessoaJuridica');
+    if (this.checked) {
+        fisica.classList.remove('hidden');
+        document.getElementById('tipoPessoaJuridica').checked = false;
+        juridica.classList.add('hidden');
+    } else {
+        fisica.classList.add('hidden');
+    }
+});
+document.getElementById('tipoPessoaJuridica').addEventListener('change', function() {
+    const fisica = document.getElementById('dadosPessoaFisica');
+    const juridica = document.getElementById('dadosPessoaJuridica');
+    if (this.checked) {
+        juridica.classList.remove('hidden');
+        document.getElementById('tipoPessoaFisica').checked = false;
+        fisica.classList.add('hidden');
+    } else {
+        juridica.classList.add('hidden');
+    }
+});
+
+// Alternância de Averbação
+document.getElementById('tipoAverbacao').addEventListener('change', function() {
+    const tipoAverbacao = this.value;
+    const averbacaoMatricula = document.getElementById('averbacaoMatricula');
+    const averbacaoImovel = document.getElementById('averbacaoImovel');
+    const averbacaoProprietario = document.getElementById('averbacaoProprietario');
+    averbacaoMatricula.classList.add('hidden');
+    averbacaoImovel.classList.add('hidden');
+    averbacaoProprietario.classList.add('hidden');
+    if (tipoAverbacao === 'matricula') {
+        averbacaoMatricula.classList.remove('hidden');
+    } else if (tipoAverbacao === 'imovel') {
+        averbacaoImovel.classList.remove('hidden');
+    } else if (tipoAverbacao === 'proprietario') {
+        averbacaoProprietario.classList.remove('hidden');
+    }
+});
+
+// Alternância de representante
+document.getElementById('possuiRepresentante').addEventListener('change', function() {
+    const dadosRepresentante = document.getElementById('dadosRepresentante');
+    if (this.checked) {
+        dadosRepresentante.classList.remove('hidden');
+    } else {
+        dadosRepresentante.classList.add('hidden');
+    }
+});
+
+// Máscara e validação CPF/CNPJ
+function formatarCPF(cpf) {
+    cpf = cpf.replace(/\D/g, "");
+    cpf = cpf.slice(0, 11);
+    if (cpf.length > 9) {
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
+    } else if (cpf.length > 6) {
+        return cpf.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
+    } else if (cpf.length > 3) {
+        return cpf.replace(/(\d{3})(\d{1,3})/, "$1.$2");
+    }
+    return cpf;
+}
+function validarCPF(cpf) {
+    cpf = cpf.replace(/\D/g, "");
+    if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+    let soma = 0, resto;
+    for (let i = 1; i <= 9; i++) soma += parseInt(cpf.substring(i-1, i)) * (11 - i);
+    resto = (soma * 10) % 11;
+    if ((resto === 10) || (resto === 11)) resto = 0;
+    if (resto !== parseInt(cpf.substring(9, 10))) return false;
+    soma = 0;
+    for (let i = 1; i <= 10; i++) soma += parseInt(cpf.substring(i-1, i)) * (12 - i);
+    resto = (soma * 10) % 11;
+    if ((resto === 10) || (resto === 11)) resto = 0;
+    if (resto !== parseInt(cpf.substring(10, 11))) return false;
+    return true;
+}
+function formatarCNPJ(cnpj) {
+    cnpj = cnpj.replace(/\D/g, "");
+    cnpj = cnpj.slice(0, 14);
+    if (cnpj.length > 12) {
+        return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{1,2}).*/, "$1.$2.$3/$4-$5");
+    } else if (cnpj.length > 8) {
+        return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{1,4}).*/, "$1.$2.$3/$4");
+    } else if (cnpj.length > 5) {
+        return cnpj.replace(/^(\d{2})(\d{3})(\d{1,3}).*/, "$1.$2.$3");
+    } else if (cnpj.length > 2) {
+        return cnpj.replace(/^(\d{2})(\d{1,3}).*/, "$1.$2");
+    }
+    return cnpj;
+}
+function validarCNPJ(cnpj) {
+    cnpj = cnpj.replace(/\D/g, "");
+    if (cnpj.length !== 14) return false;
+    if (/^(\d)\1+$/.test(cnpj)) return false;
+    let tamanho = cnpj.length - 2;
+    let numeros = cnpj.substring(0, tamanho);
+    let digitos = cnpj.substring(tamanho);
+    let soma = 0;
+    let pos = tamanho - 7;
+    for (let i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2) pos = 9;
+    }
+    let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(0)) return false;
+    tamanho = tamanho + 1;
+    numeros = cnpj.substring(0, tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (let i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2) pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(1)) return false;
+    return true;
+}
+
+// CPF Pessoa Física
+const cpfFisicaInput = document.querySelector('input[name="cpf_pessoa_fisica"]');
+if (cpfFisicaInput) {
+    cpfFisicaInput.addEventListener('input', function() {
+        this.value = formatarCPF(this.value);
+    });
+    cpfFisicaInput.addEventListener('blur', function() {
+        if (this.value && !validarCPF(this.value)) {
+            this.style.borderColor = 'red';
+            this.title = 'CPF inválido!';
+        } else {
+            this.style.borderColor = '';
+            this.title = '';
+        }
+    });
+}
+
+// CPF Representante
+const cpfRepresentanteInput = document.getElementById('cpfRepresentante');
+if (cpfRepresentanteInput) {
+    cpfRepresentanteInput.addEventListener('input', function() {
+        this.value = formatarCPF(this.value);
+    });
+    cpfRepresentanteInput.addEventListener('blur', function() {
+        if (this.value && !validarCPF(this.value)) {
+            this.style.borderColor = 'red';
+            this.title = 'CPF inválido!';
+        } else {
+            this.style.borderColor = '';
+            this.title = '';
+        }
+    });
+}
+
+// CNPJ Pessoa Jurídica
+const cnpjInput = document.querySelector('input[name="cnpj_pessoa_juridica"]');
+if (cnpjInput) {
+    cnpjInput.addEventListener('input', function() {
+        this.value = formatarCNPJ(this.value);
+    });
+    cnpjInput.addEventListener('blur', function() {
+        if (this.value && !validarCNPJ(this.value)) {
+            this.style.borderColor = 'red';
+            this.title = 'CNPJ inválido!';
+        } else {
+            this.style.borderColor = '';
+            this.title = '';
+        }
+    });
+}
+
+// Exportar para PDF
+document.getElementById('btnExportarPDF').addEventListener('click', function() {
+    alert('Selecione "Salvar como PDF" na janela de impressão para exportar o documento.');
+    window.print();
+});
+
+// Pessoa Física - Busca CEP
+document.getElementById('cepPessoaFisica')?.addEventListener('blur', function() {
+    const cep = this.value.replace(/\D/g, '');
+    if (cep.length === 8) {
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.erro) {
+                    document.getElementById('ruaPessoaFisica').value = data.logradouro || '';
+                    document.getElementById('bairroPessoaFisica').value = data.bairro || '';
+                    document.getElementById('cidadeUfPessoaFisica').value =
+                        (data.localidade || '') + (data.uf ? '/' + data.uf : '');
+                }
+            });
+    }
+});
+
+// Representante - Busca CEP
+document.getElementById('cepRepresentante')?.addEventListener('blur', function() {
+    const cep = this.value.replace(/\D/g, '');
+    if (cep.length === 8) {
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.erro) {
+                    document.getElementById('ruaRepresentante').value = data.logradouro || '';
+                    document.getElementById('bairroRepresentante').value = data.bairro || '';
+                    document.getElementById('cidadeUfRepresentante').value =
+                        (data.localidade || '') + (data.uf ? '/' + data.uf : '');
+                }
+            });
+    }
+});
