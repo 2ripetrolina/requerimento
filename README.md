@@ -12,6 +12,12 @@ Este projeto é um formulário digital para geração de requerimentos ao 2º Re
 - Botão para exportar o formulário preenchido para PDF (via impressão do navegador)
 - Instruções detalhadas para preenchimento
 
+## Estrutura do Projeto
+
+- [`index.html`](index.html): Página principal com o formulário.
+- [`style.css`](style.css): Estilos para o formulário e responsividade.
+- [`script.js`](script.js): Lógica de alternância, máscaras, validação e integração com ViaCEP.
+
 ## Tecnologias
 
 - HTML5
