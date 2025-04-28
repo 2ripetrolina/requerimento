@@ -225,43 +225,23 @@ h3, h4 {
     }
 }
 
-/* ...existing code... */
-.assinatura-certifico-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 28px 0 18px 0;
-    gap: 24px;
-    flex-wrap: wrap;
-}
-.assinatura-certifico-assinatura {
-    text-align: left;
-    flex: 1 1 200px;
-    min-width: 0;
-}
-.assinatura-certifico-carimbo {
-    flex: 0 0 340px;
-    margin-left: 24px;
-    border: 2px solid #222;
-    border-radius: 8px;
-    padding: 12px 10px 10px 10px;
-    color: #000;
-    font-size: 13px;
-    min-width: 280px;
-    max-width: 360px;
-    box-shadow: 1px 2px 8px #0002;
-}
-
-@media (max-width: 700px) {
-    .assinatura-certifico-container {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 18px;
+    /* Garante assinatura e carimbo lado a lado na impressão */
+    @media print {
+        .assinatura-certifico-container {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: flex-start !important;
+            gap: 24px !important;
+            justify-content: space-between !important;
+            page-break-inside: avoid !important;
+        }
+        .assinatura-certifico-assinatura,
+        .assinatura-certifico-carimbo {
+            min-width: 0 !important;
+            max-width: 50% !important;
+            flex: 1 1 0 !important;
+        }
+        .assinatura-certifico-carimbo {
+            margin-left: 24px !important;
+        }
     }
-    .assinatura-certifico-carimbo {
-        margin-left: 0;
-        max-width: 100%;
-        min-width: 0;
-    }
-}
-/* ...existing code... */
