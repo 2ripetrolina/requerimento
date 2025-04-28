@@ -224,3 +224,43 @@ h3, h4 {
         font-size: 12px !important;
     }
 }
+
+/* ...existing code... */
+.assinatura-certifico-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 28px 0 18px 0;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.assinatura-certifico-container > div,
+.assinatura-certifico-container > fieldset {
+    flex: 1 1 280px;
+    min-width: 0;
+}
+.assinatura-certifico-carimbo {
+    border: 2px solid #222;
+    border-radius: 8px;
+    padding: 12px 10px 10px 10px;
+    background: #fff;
+    color: #000;
+    font-size: 13px;
+    max-width: 360px;
+    min-width: 0;
+    box-shadow: 1px 2px 8px #0002;
+    margin-left: 24px;
+}
+
+@media (max-width: 700px) {
+    .assinatura-certifico-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+    }
+    .assinatura-certifico-carimbo {
+        margin-left: 0;
+        max-width: 100%;
+    }
+}
+/* ...existing code... */
