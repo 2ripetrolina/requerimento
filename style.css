@@ -224,6 +224,17 @@ h3, h4 {
         font-size: 12px !important;
     }
 }
+    .assinatura-certifico-container {
+        flex-direction: row !important;
+        align-items: flex-start !important;
+        gap: 24px !important;
+    }
+    .assinatura-certifico-carimbo {
+        margin-left: 24px !important;
+        max-width: 360px !important;
+        min-width: 280px !important;
+    }
+}
 
 /* ...existing code... */
 .assinatura-certifico-container {
