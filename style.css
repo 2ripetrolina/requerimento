@@ -231,25 +231,26 @@ h3, h4 {
     justify-content: space-between;
     align-items: flex-start;
     margin: 28px 0 18px 0;
-    gap: 16px;
+    gap: 24px;
     flex-wrap: wrap;
 }
-.assinatura-certifico-container > div,
-.assinatura-certifico-container > fieldset {
-    flex: 1 1 280px;
+.assinatura-certifico-assinatura {
+    text-align: left;
+    flex: 1 1 200px;
     min-width: 0;
 }
 .assinatura-certifico-carimbo {
+    flex: 0 0 340px;
+    margin-left: 24px;
     border: 2px solid #222;
     border-radius: 8px;
     padding: 12px 10px 10px 10px;
     background: #fff;
     color: #000;
     font-size: 13px;
+    min-width: 280px;
     max-width: 360px;
-    min-width: 0;
     box-shadow: 1px 2px 8px #0002;
-    margin-left: 24px;
 }
 
 @media (max-width: 700px) {
@@ -261,6 +262,7 @@ h3, h4 {
     .assinatura-certifico-carimbo {
         margin-left: 0;
         max-width: 100%;
+        min-width: 0;
     }
 }
 /* ...existing code... */
