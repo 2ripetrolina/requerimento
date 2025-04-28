@@ -12,7 +12,6 @@ form {
     padding: 16px 18px 10px 18px;
     background-color: #444;
     border-radius: 8px;
-    box-shadow: 0 2px 16px #0002;
 }
 fieldset {
     border: 1px solid #555;
@@ -223,61 +222,127 @@ h3, h4 {
     .footer, .instrucao {
         font-size: 12px !important;
     }
+    label,
+    .compact-option,
+    .checkbox-group label {
+        color: #000 !important;
+    }
+    input[name="matriculas_remembramento"].inline-lacuna {
+        width: 300px !important;
+        max-width: 300px !important;
+        min-width: 80px !important;
+    }
 }
 
-    /* Assinatura e carimbo lado a lado no desktop */
+/* Assinatura e carimbo lado a lado no desktop */
+.assinatura-certifico-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+    justify-content: space-between;
+    margin-top: 24px;
+}
+.assinatura-certifico-assinatura,
+.assinatura-certifico-carimbo {
+    min-width: 0;
+    max-width: 50%;
+    flex: 1 1 0;
+}
+.assinatura-certifico-carimbo {
+    margin-left: 24px;
+}
+
+/* No mobile, empilha verticalmente */
+@media (max-width: 600px) {
     .assinatura-certifico-container {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 24px;
-        justify-content: space-between;
-        margin-top: 24px;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .assinatura-certifico-carimbo {
+        margin-left: 0;
+        margin-top: 16px;
+        max-width: 100%;
     }
     .assinatura-certifico-assinatura,
     .assinatura-certifico-carimbo {
-        min-width: 0;
-        max-width: 50%;
-        flex: 1 1 0;
+        max-width: 100%;
+    }
+}
+
+/* Na impressão, mantém lado a lado */
+@media print {
+    .assinatura-certifico-container {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: flex-start !important;
+        gap: 24px !important;
+        justify-content: space-between !important;
+        page-break-inside: avoid !important;
+    }
+    .assinatura-certifico-assinatura,
+    .assinatura-certifico-carimbo {
+        min-width: 0 !important;
+        max-width: 50% !important;
+        flex: 1 1 0 !important;
     }
     .assinatura-certifico-carimbo {
-        margin-left: 24px;
+        margin-left: 24px !important;
     }
-    
-    /* No mobile, empilha verticalmente */
-    @media (max-width: 600px) {
-        .assinatura-certifico-container {
-            flex-direction: column;
-            gap: 8px;
-        }
-        .assinatura-certifico-carimbo {
-            margin-left: 0;
-            margin-top: 16px;
-            max-width: 100%;
-        }
-        .assinatura-certifico-assinatura,
-        .assinatura-certifico-carimbo {
-            max-width: 100%;
-        }
+}
+.inline-lacuna {
+    display: inline-block;
+    width: 36px;
+    min-width: 24px;
+    font-size: 12px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    text-align: center;
+    margin: 0 2px;
+    outline: none;
+}
+.inline-lacuna::placeholder {
+    color: #bbb;
+    opacity: 1;
+}
+.compact-option {
+    font-size: 12px;
+    color: #fff;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 4px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.compact-option input[type="checkbox"] {
+    margin-right: 6px;
+}
+@media print {
+    .inline-lacuna,
+    .inline-lacuna::placeholder {
+        color: #000 !important;
+        -webkit-text-fill-color: #000 !important;
     }
-    
-    /* Na impressão, mantém lado a lado */
-    @media print {
-        .assinatura-certifico-container {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: flex-start !important;
-            gap: 24px !important;
-            justify-content: space-between !important;
-            page-break-inside: avoid !important;
-        }
-        .assinatura-certifico-assinatura,
-        .assinatura-certifico-carimbo {
-            min-width: 0 !important;
-            max-width: 50% !important;
-            flex: 1 1 0 !important;
-        }
-        .assinatura-certifico-carimbo {
-            margin-left: 24px !important;
-        }
+    .inline-lacuna {
+        width: 32px !important;
+        min-width: 24px !important;
+        max-width: 40px !important;
+        font-size: 11px !important;
+        padding: 0 !important;
+        margin: 0 2px !important;
+        border: none !important;
+        border-bottom: 1px solid #000 !important;
+        background: transparent !important;
+        box-sizing: border-box !important;
+        height: 14px !important;
+        outline: none !important;
+        vertical-align: middle !important;
     }
+    /* Garante que só os inputs SEM a classe inline-lacuna fiquem 100% */
+    input[type="text"]:not([class~="inline-lacuna"]),
+    input[type="number"]:not([class~="inline-lacuna"]) {
+        width: 100% !important;
+    }
+}
