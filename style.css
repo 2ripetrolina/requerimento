@@ -224,3 +224,39 @@ h3, h4 {
         font-size: 12px !important;
     }
 }
+    .assinatura-certifico {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin: 28px 0 18px 0;
+        gap: 18px;
+        flex-wrap: wrap;
+    }
+    .assinatura-certifico .assinatura {
+        text-align: left;
+        flex: 1 1 220px;
+        min-width: 200px;
+    }
+    .certifico-carimbo {
+        flex: 0 0 340px;
+        min-width: 260px;
+        max-width: 360px;
+        border: 2px solid #222;
+        border-radius: 8px;
+        padding: 12px 10px 10px 10px;
+        background: #fff;
+        color: #000;
+        font-size: 13px;
+        box-shadow: 1px 2px 8px #0002;
+    }
+    @media (max-width: 700px) {
+        .assinatura-certifico {
+            flex-direction: column;
+            gap: 10px;
+        }
+        .certifico-carimbo {
+            max-width: 100%;
+            min-width: 0;
+            width: 100%;
+        }
+    }
