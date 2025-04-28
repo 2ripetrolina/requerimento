@@ -1,11 +1,16 @@
-// Alternância de Pessoa Física/Jurídica
+// Alternância de Pessoa Física/Jurídica e Representante obrigatoriamente para PJ
 document.getElementById('tipoPessoaFisica').addEventListener('change', function() {
     const fisica = document.getElementById('dadosPessoaFisica');
     const juridica = document.getElementById('dadosPessoaJuridica');
+    const representante = document.getElementById('dadosRepresentante');
+    const chkRepresentante = document.getElementById('possuiRepresentante');
     if (this.checked) {
         fisica.classList.remove('hidden');
         document.getElementById('tipoPessoaJuridica').checked = false;
         juridica.classList.add('hidden');
+        // Se desmarcar PJ, permite desmarcar representante
+        chkRepresentante.checked = false;
+        representante.classList.add('hidden');
     } else {
         fisica.classList.add('hidden');
     }
@@ -13,12 +18,20 @@ document.getElementById('tipoPessoaFisica').addEventListener('change', function(
 document.getElementById('tipoPessoaJuridica').addEventListener('change', function() {
     const fisica = document.getElementById('dadosPessoaFisica');
     const juridica = document.getElementById('dadosPessoaJuridica');
+    const representante = document.getElementById('dadosRepresentante');
+    const chkRepresentante = document.getElementById('possuiRepresentante');
     if (this.checked) {
         juridica.classList.remove('hidden');
         document.getElementById('tipoPessoaFisica').checked = false;
         fisica.classList.add('hidden');
+        // Pessoa Jurídica sempre precisa de representante
+        chkRepresentante.checked = true;
+        representante.classList.remove('hidden');
     } else {
         juridica.classList.add('hidden');
+        // Permite esconder representante se não for PJ
+        chkRepresentante.checked = false;
+        representante.classList.add('hidden');
     }
 });
 
