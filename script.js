@@ -225,12 +225,17 @@ document.getElementById('cepRepresentante')?.addEventListener('blur', function()
 });
 
 // Preenche a data atual no formato "01 de abril de 2025"
-const meses = [
-    "janeiro", "fevereiro", "março", "abril", "maio", "junho",
-    "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
-];
-const hoje = new Date();
-const dia = String(hoje.getDate()).padStart(2, '0');
-const mes = meses[hoje.getMonth()];
-const ano = hoje.getFullYear();
-document.getElementById('dataAtual').textContent = `${dia} de ${mes} de ${ano}`;
+document.addEventListener('DOMContentLoaded', function() {
+    const meses = [
+        "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+        "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+    ];
+    const hoje = new Date();
+    const dia = String(hoje.getDate()).padStart(2, '0');
+    const mes = meses[hoje.getMonth()];
+    const ano = hoje.getFullYear();
+    const dataAtual = document.getElementById('dataAtual');
+    if (dataAtual) {
+        dataAtual.textContent = `${dia} de ${mes} de ${ano}`;
+    }
+});
