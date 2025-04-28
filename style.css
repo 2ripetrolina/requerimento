@@ -225,7 +225,43 @@ h3, h4 {
     }
 }
 
-    /* Garante assinatura e carimbo lado a lado na impressão */
+    /* Assinatura e carimbo lado a lado no desktop */
+    .assinatura-certifico-container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 24px;
+        justify-content: space-between;
+        margin-top: 24px;
+    }
+    .assinatura-certifico-assinatura,
+    .assinatura-certifico-carimbo {
+        min-width: 0;
+        max-width: 50%;
+        flex: 1 1 0;
+    }
+    .assinatura-certifico-carimbo {
+        margin-left: 24px;
+    }
+    
+    /* No mobile, empilha verticalmente */
+    @media (max-width: 600px) {
+        .assinatura-certifico-container {
+            flex-direction: column;
+            gap: 8px;
+        }
+        .assinatura-certifico-carimbo {
+            margin-left: 0;
+            margin-top: 16px;
+            max-width: 100%;
+        }
+        .assinatura-certifico-assinatura,
+        .assinatura-certifico-carimbo {
+            max-width: 100%;
+        }
+    }
+    
+    /* Na impressão, mantém lado a lado */
     @media print {
         .assinatura-certifico-container {
             display: flex !important;
