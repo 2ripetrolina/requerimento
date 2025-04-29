@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #333;
+    background: radial-gradient(circle at 50% 40%, #283246 60%, #181c28 100%); /* gradiente escurecendo nas bordas */
     color: #fff;
     font-size: 14px;
 }
@@ -10,7 +10,7 @@ form {
     max-width: 800px;
     margin: auto;
     padding: 16px 18px 10px 18px;
-    background-color: #444;
+    background: radial-gradient(circle at 50% 40%, #22293a 70%, #181c28 100%); /* gradiente mais escuro */
     border-radius: 8px;
 }
 fieldset {
@@ -18,7 +18,7 @@ fieldset {
     margin-bottom: 14px;
     padding: 12px 10px 10px 10px;
     border-radius: 6px;
-    background: #393939;
+    background: radial-gradient(circle at 50% 40%, #22293a 80%, #181c28 100%); /* gradiente mais escuro */
 }
 .form-group {
     display: flex;
@@ -40,7 +40,7 @@ input[type="text"], input[type="email"], select {
     font-size: 14px;
     border: 1px solid #666;
     border-radius: 3px;
-    background-color: #555 !important;
+    background-color: #22293a !important; /* cor mais escura */
     color: #fff;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -48,7 +48,7 @@ input[type="text"]:focus, input[type="email"]:focus, select:focus {
     border-color: #00bfff;
     box-shadow: 0 0 0 2px #00bfff44;
     outline: none;
-    background: #4a4a4a !important;
+    background: #22293a !important;
 }
 .checkbox-group {
     display: flex;
@@ -74,7 +74,7 @@ h3, h4 {
     letter-spacing: 0.5px;
 }
 .hidden {
-    display: none;
+    display: none !important;
 }
 .footer {
     margin-top: 20px;
@@ -213,7 +213,7 @@ h3, h4 {
         margin: 2px 0 !important;
     }
     .logo img {
-        width: 100px !important;
+        width: 80px !important;
         margin-bottom: 2px !important;
     }
     .logo {
@@ -231,6 +231,14 @@ h3, h4 {
         width: 300px !important;
         max-width: 300px !important;
         min-width: 80px !important;
+    }
+    /* Esconde o checkbox e o texto "Reconhecer firma" na impressão/PDF */
+    .reconhecer-firma-label {
+        display: none !important;
+    }
+    /*ocultar os checkbox não selecionados*/
+    .hide-on-print {
+        display: none !important;
     }
 }
 
