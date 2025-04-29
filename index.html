@@ -8,7 +8,11 @@
 </head>
 <body>
     <!-- Botão Exportar para PDF -->
-    <div style="text-align: right; margin: 10px 0;">
+    <div style="text-align: right; margin: 10px 0; display: flex; justify-content: flex-end; gap: 12px;">
+        <label class="reconhecer-firma-label" style="display: flex; align-items: center; gap: 5px;">
+            <input type="checkbox" id="reconhecerFirma" checked>
+            Reconhecer firma
+        </label>
         <button id="btnExportarPDF" type="button" style="padding: 7px 18px; background: transparent; color: #fff; border: none; border-radius: 4px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
             <!-- Ícone PDF SVG -->
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" viewBox="0 0 24 24" style="margin-right: 5px;">
@@ -146,7 +150,7 @@
             <legend>REQUER a prática do(s) seguinte(s) ato(s) a ser(em) praticado(s) na(s) matrícula(s) abaixo relacionada(s):</legend>
             <div style="display: flex; align-items: flex-end; gap: 10px;">
                 <div style="display: flex; flex-direction: column;">
-                    <select id="tipoAverbacao" name="tipoAverbacao" style="width: 350px; border: none; background-color: #555; color: #fff;">
+                    <select id="tipoAverbacao" name="tipoAverbacao" style="width: 350px; border: none; background-color: #22293a; color: #fff;">
                         <option value=""></option>
                         <option value="matricula">Matrícula desta 2ª Serventia</option>
                         <option value="imovel">Matrícula oriunda da 1ª Serventia</option>
@@ -155,7 +159,7 @@
                 </div>
                 <div style="display: flex; align-items: center;">
                     <label for="numeroMatricula" style="margin-bottom: 0; margin-right: 5px;">Nº Matrícula(s):</label>
-                    <input type="text" id="numeroMatricula" name="numeroMatricula" maxlength="100" style="width: 200px; margin-top: 0; border: none; background-color: #555; color: #fff;" placeholder="">
+                    <input type="text" id="numeroMatricula" name="numeroMatricula" maxlength="100" style="width: 200px; margin-top: 0; border: none; background-color: #22293a; color: #fff;" placeholder="">
                 </div>
             </div>
 
@@ -200,6 +204,13 @@
                     R-<input type="text" name="r_cancelamento_onus" placeholder="___" class="inline-lacuna" style="width:30px;">
                     e/ou AV-<input type="text" name="av_cancelamento_onus" placeholder="___" class="inline-lacuna" style="width:30px;">
                 </label>
+                <label class="compact-option" style="align-items: flex-start;">
+                    <input type="checkbox" name="averbacoes" value="outros" id="checkboxOutros">
+                    Outros (descrever)
+                </label>
+                <div id="outrosDescricaoContainer" class="hidden" style="margin-top:8px; width:100%;">
+                    <textarea name="outros_descricao" rows="4" placeholder="Digite aqui a solicitação do requerimento..." style="width:100%; border-radius:4px; border:none; background:#ffffff; color:#000; font-size:14px; resize:vertical; font-family: Arial, sans-serif;"></textarea>
+                </div>
             </div>
 
             <!-- Opções específicas de Imóvel -->
@@ -243,10 +254,18 @@
                     R-<input type="text" name="r_cancelamento_onus" placeholder="___" class="inline-lacuna" style="width:30px;">
                     e/ou AV-<input type="text" name="av_cancelamento_onus" placeholder="___" class="inline-lacuna" style="width:30px;">
                 </label>
+                <label class="compact-option" style="align-items: flex-start;">
+                    <input type="checkbox" name="averbacoes" value="outros" id="checkboxOutros">
+                    Outros (descrever)
+                </label>
+                <div id="outrosDescricaoContainer" class="hidden" style="margin-top:8px; width:100%;">
+                    <textarea name="outros_descricao" rows="4" placeholder="Digite aqui a solicitação do requerimento..." style="width:100%; border-radius:4px; border:none; background:#ffffff; color:#000; font-size:14px; resize:vertical; font-family: Arial, sans-serif;"></textarea>
+                </div>
             </div>
 
             <!-- Opções específicas de Proprietário -->
             <div id="averbacaoProprietario" class="checkbox-group hidden" style="flex-direction: column;">
+                <label><input type="checkbox" name="averbacoes" value="todas" checked> Todas as averbações necessárias ao aperfeiçoamento da matrícula.</label>
                 <textarea name="solicitacao_proprietario" rows="4" placeholder="Digite aqui a solicitação do requerimento..." style="margin-top:8px; width:100%; border-radius:4px; border:none; background:#ffffff; color:#000; font-size:14px; resize:vertical; font-family: Arial, sans-serif;"></textarea>
             </div>
         </fieldset>
@@ -262,7 +281,7 @@
             REQUERENTE
         </div>
         <!-- Certifico estilo carimbo -->
-        <fieldset class="assinatura-certifico-carimbo">
+        <fieldset class="assinatura-certifico-carimbo" id="carimboCertifico">
             <strong>CERTIFICO</strong> que o presente documento foi assinado, pelo usuário, em minha presença, com base no que prevê o § 3º do art. 1.149 do Código de Normas de Pernambuco.<br><br>
             <strong>Colaborador(a):__________________________<br></strong>
             <strong>Data:_____/_____/__________</strong>
