@@ -331,15 +331,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const atencao = document.getElementById('atencaoReconhecimento');
     const carimbo = document.getElementById('carimboCertifico');
     function toggleAtencaoCarimbo() {
-        if (sim.checked) {
-            atencao.style.display = 'none';
+        if (sim && sim.checked) {
+            if (atencao) atencao.style.display = 'none';
             if (carimbo) carimbo.style.display = '';
         } else {
-            atencao.style.display = 'inline';
+            if (atencao) atencao.style.display = 'inline';
             if (carimbo) carimbo.style.display = 'none';
         }
     }
-    if (sim && nao && atencao) {
+    if (sim && nao) {
         sim.addEventListener('change', toggleAtencaoCarimbo);
         nao.addEventListener('change', toggleAtencaoCarimbo);
         toggleAtencaoCarimbo();
@@ -387,5 +387,27 @@ document.addEventListener('DOMContentLoaded', function() {
         checkboxOutrosImovel.addEventListener('change', function() {
             outrosDescricaoImovel.classList.toggle('hidden', !this.checked);
         });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const simRep = document.getElementById('possuiRepresentanteSim');
+    const naoRep = document.getElementById('possuiRepresentanteNao');
+    const atencaoRep = document.getElementById('atencaoRepresentante');
+    function toggleAtencaoRep() {
+        const isPJ = document.getElementById('tipoPessoaJuridica').checked;
+        if ((simRep && simRep.checked) || isPJ) {
+            if (atencaoRep) atencaoRep.style.display = 'block';
+        } else {
+            if (atencaoRep) atencaoRep.style.display = 'none';
+        }
+    }
+    if (simRep && naoRep && atencaoRep) {
+        simRep.addEventListener('change', toggleAtencaoRep);
+        naoRep.addEventListener('change', toggleAtencaoRep);
+        // Também atualiza ao trocar PF/PJ
+        document.getElementById('tipoPessoaFisica').addEventListener('change', toggleAtencaoRep);
+        document.getElementById('tipoPessoaJuridica').addEventListener('change', toggleAtencaoRep);
+        toggleAtencaoRep();
     }
 });
