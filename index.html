@@ -90,17 +90,16 @@
 
             <!-- Checkbox para representante -->
             <div style="margin: 10px 0;">
-                <span style="font-size:11px;">
+                <label style="font-size:13px;">
                     Possui representante/procurador?
-                </span>
-                <label style="margin-left: 10px; font-size:11px;">
-                    <input type="radio" name="possuiRepresentante" id="possuiRepresentanteSim" value="sim">
-                    <span style="color: orange;">Sim, atenção! é obrigatório informar os dados do representante/procurador.</span>
-                </label>
-                <label style="margin-left: 10px; font-size:11px;">
-                    <input type="radio" name="possuiRepresentante" id="possuiRepresentanteNao" value="nao" checked>
+                    <input type="radio" name="possuiRepresentante" id="possuiRepresentanteSim" value="sim" style="margin-left: 10px;">
+                    Sim
+                    <input type="radio" name="possuiRepresentante" id="possuiRepresentanteNao" value="nao" style="margin-left: 10px;" checked>
                     Não
                 </label>
+                <div id="atencaoRepresentante" class="no-print" style="display:none; color: #ff9800; font-size:13px; margin-top: 4px;">
+                    <strong>Atenção!</strong> Nesta hipótese, é obrigatório o preenchimento dos dados do representante/procurador.
+                </div>
             </div>
 
             <!-- Dados do Representante -->
