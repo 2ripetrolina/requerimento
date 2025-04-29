@@ -264,6 +264,15 @@ document.getElementById('btnExportarPDF').addEventListener('click', function(e) 
         if (!cidadeUfRep.value.trim()) camposInvalidos.push('Cidade/UF (Representante)');
     }
 
+    // NOVO: Campo obrigatório para Nº Matrícula(s)
+    const numeroMatricula = document.getElementById('numeroMatricula');
+    if (!numeroMatricula.value.trim()) {
+        camposInvalidos.push('Nº Matrícula(s)');
+        numeroMatricula.style.borderColor = 'red';
+    } else {
+        numeroMatricula.style.borderColor = '';
+    }
+
     if (camposInvalidos.length > 0) {
         e.preventDefault();
         alert('Preencha os seguintes campos obrigatórios antes de exportar para PDF:\n\n' + camposInvalidos.join('\n'));
