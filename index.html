@@ -7,20 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Botão Exportar para PDF -->
-    <div style="text-align: right; margin: 10px 0; display: flex; justify-content: flex-end; gap: 12px;">
-        <label class="reconhecer-firma-label" style="display: flex; align-items: center; gap: 5px;">
-            <input type="checkbox" id="reconhecerFirma" checked>
-            Reconhecer firma
-        </label>
-        <button id="btnExportarPDF" type="button" style="padding: 7px 18px; background: transparent; color: #fff; border: none; border-radius: 4px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-            <!-- Ícone PDF SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" viewBox="0 0 24 24" style="margin-right: 5px;">
-                <path d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H6zm7 1.5V9h5.5L13 3.5zM8 13h1.5v6H8v-6zm2.75 0h1.25l1.5 6h-1.1l-.25-1.25h-1.55L10.9 19h-1.1l1.5-6zm.6 3.5h1.3l-.65-3.25-.65 3.25zm3.15-3.5h2.25c.83 0 1.5.67 1.5 1.5v3c0 .83-.67 1.5-1.5 1.5h-2.25v-6zm1.5 1.5v3h.75a.75.75 0 0 0 .75-.75v-1.5a.75.75 0 0 0-.75-.75h-.75z"/>
-            </svg>
-            Exportar para PDF
-        </button>
-    </div>
     <div class="logo">
         <img src="https://raw.githubusercontent.com/dancartorio/intuity/main/logo.png" alt="Logotipo do Cartório">
     </div>
@@ -97,7 +83,7 @@
             <div>
                 <label>
                     <input type="checkbox" id="possuiRepresentante">
-                    Possui representante/procurador? Caso sim, preencher dados do representante.
+                    Possui representante/procurador? Se sim, preencher dados do representante/procurador.
                 </label>
             </div>
 
@@ -154,7 +140,6 @@
                         <option value=""></option>
                         <option value="matricula">Matrícula desta 2ª Serventia</option>
                         <option value="imovel">Matrícula oriunda da 1ª Serventia</option>
-                        <option value="proprietario">Vem, respeitosamente, por meio deste, <strong>SOLICITAR:</strong></option>
                     </select>
                 </div>
                 <div style="display: flex; align-items: center;">
@@ -270,24 +255,53 @@
             </div>
         </fieldset>
 
-    <!-- ...existing code... -->
-    <div class="assinatura-certifico-container">
-        <!-- Assinatura -->
-        <div class="assinatura-certifico-assinatura">
-            Nestes termos,<br>
-            Pede deferimento.<br><br>
-            Petrolina, <span id="dataAtual"></span>.<br><br>
-            __________________________________<br>
-            REQUERENTE
+        <!-- Substitua o antigo bloco pelo novo -->
+<div class="no-print" style="display: flex; justify-content: space-between; align-items: flex-start; margin: 10px 0 18px 0;">
+    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; max-width: 60%;">
+        <span style="font-size:14px; color:#fff; margin-bottom:2px;">
+            O requerimento será assinado na presença do recepcionista desta Segunda Serventia?
+        </span>
+        <div style="display: flex; align-items: center; gap: 18px;">
+            <label class="reconhecer-firma-label" style="display: flex; align-items: center; gap: 5px;">
+                <input type="radio" name="reconhecerFirmaRadio" id="reconhecerFirmaSim" checked>
+                SIM
+            </label>
+            <label class="reconhecer-firma-label" style="display: flex; align-items: center; gap: 5px;">
+                <input type="radio" name="reconhecerFirmaRadio" id="reconhecerFirmaNao">
+                NÃO
+            </label>
+            <span id="atencaoReconhecimento" style="display:none; color: #ffb300; font-size:13px; background: #22293a; border-radius: 3px; padding: 2px 8px;">
+                <strong>ATENÇÃO!</strong> Neste caso, haverá a necessidade do reconhecimento de firma do requerente perante um Tabelionato (Cartório) de Notas.
+            </span>
         </div>
-        <!-- Certifico estilo carimbo -->
-        <fieldset class="assinatura-certifico-carimbo" id="carimboCertifico">
-            <strong>CERTIFICO</strong> que o presente documento foi assinado, pelo usuário, em minha presença, com base no que prevê o § 3º do art. 1.149 do Código de Normas de Pernambuco.<br><br>
-            <strong>Colaborador(a):__________________________<br></strong>
-            <strong>Data:_____/_____/__________</strong>
-        </fieldset>
     </div>
-    <!-- ...existing code... -->
+    <!-- Botão PDF -->
+    <button id="btnExportarPDF" type="button" style="padding: 7px 18px; background: transparent; color: #fff; border: none; border-radius: 4px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+        <!-- Ícone PDF SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" viewBox="0 0 24 24" style="margin-right: 5px;">
+            <path d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H6zm7 1.5V9h5.5L13 3.5zM8 13h1.5v6H8v-6zm2.75 0h1.25l1.5 6h-1.1l-.25-1.25h-1.55L10.9 19h-1.1l1.5-6zm.6 3.5h1.3l-.65-3.25-.65 3.25zm3.15-3.5h2.25c.83 0 1.5.67 1.5 1.5v3c0 .83-.67 1.5-1.5 1.5h-2.25v-6zm1.5 1.5v3h.75a.75.75 0 0 0 .75-.75v-1.5a.75.75 0 0 0-.75-.75h-.75z"/>
+        </svg>
+        Exportar para PDF
+    </button>
+</div>
+
+        <!-- Assinatura e Certifico -->
+        <div class="assinatura-certifico-container">
+            <!-- Assinatura -->
+            <div class="assinatura-certifico-assinatura">
+                Nestes termos,<br>
+                Pede deferimento.<br><br>
+                Petrolina, <span id="dataAtual"></span>.<br><br>
+                __________________________________<br>
+                REQUERENTE
+            </div>
+            <!-- Certifico estilo carimbo -->
+            <fieldset class="assinatura-certifico-carimbo" id="carimboCertifico">
+                <strong>CERTIFICO</strong> que o presente documento foi assinado, pelo usuário, em minha presença, com base no que prevê o § 3º do art. 1.149 do Código de Normas de Pernambuco.<br><br>
+                <strong>Colaborador(a):__________________________<br></strong>
+                <strong>Data:_____/_____/__________</strong>
+            </fieldset>
+        </div>
     </form>
 
     <!-- Parte das instruções e certificação no final da página -->
