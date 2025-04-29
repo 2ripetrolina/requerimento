@@ -63,6 +63,12 @@ document.getElementById('possuiRepresentante').addEventListener('change', functi
     }
 });
 
+// Mostrar/ocultar textarea "Outros (descrever)" ao marcar o checkbox
+document.getElementById('checkboxOutros').addEventListener('change', function() {
+    const outrosDiv = document.getElementById('outrosDescricaoContainer');
+    outrosDiv.classList.toggle('hidden', !this.checked);
+});
+
 // Máscara e validação CPF/CNPJ
 function formatarCPF(cpf) {
     cpf = cpf.replace(/\D/g, "");
@@ -184,8 +190,72 @@ if (cnpjInput) {
     });
 }
 
-// Exportar para PDF
-document.getElementById('btnExportarPDF').addEventListener('click', function() {
+// Exportar para PDF com validação de campos obrigatórios para Pessoa Física e Representante
+document.getElementById('btnExportarPDF').addEventListener('click', function(e) {
+    const isFisica = document.getElementById('tipoPessoaFisica').checked;
+    const isJuridica = document.getElementById('tipoPessoaJuridica').checked;
+    const isRepresentante = document.getElementById('possuiRepresentante').checked;
+    let camposInvalidos = [];
+
+    // Pessoa Física
+    if (isFisica) {
+        const nome = document.querySelector('input[name="nome_pessoa_fisica"]');
+        const cpf = document.querySelector('input[name="cpf_pessoa_fisica"]');
+        const estadoCivil = document.querySelector('select[name="estado_civil_pessoa_fisica"]');
+        const profissao = document.querySelector('input[name="profissao_pessoa_fisica"]');
+        const rua = document.getElementById('ruaPessoaFisica');
+        const numero = document.getElementById('numeroPessoaFisica');
+        const bairro = document.getElementById('bairroPessoaFisica');
+        const cidadeUf = document.getElementById('cidadeUfPessoaFisica');
+
+        if (!nome.value.trim()) camposInvalidos.push('Nome (Pessoa Física)');
+        if (!cpf.value.trim()) camposInvalidos.push('CPF (Pessoa Física)');
+        if (!estadoCivil.value.trim()) camposInvalidos.push('Estado Civil (Pessoa Física)');
+        if (!profissao.value.trim()) camposInvalidos.push('Profissão (Pessoa Física)');
+        if (!rua.value.trim()) camposInvalidos.push('Rua (Pessoa Física)');
+        if (!numero.value.trim()) camposInvalidos.push('Número (Pessoa Física)');
+        if (!bairro.value.trim()) camposInvalidos.push('Bairro (Pessoa Física)');
+        if (!cidadeUf.value.trim()) camposInvalidos.push('Cidade/UF (Pessoa Física)');
+    }
+
+    // Pessoa Jurídica (apenas os campos existentes)
+    if (isJuridica) {
+        const nome = document.querySelector('input[name="nome_pessoa_juridica"]');
+        const cnpj = document.querySelector('input[name="cnpj_pessoa_juridica"]');
+        const municipioUf = document.querySelector('input[name="municipio_uf_sede"]');
+
+        if (!nome.value.trim()) camposInvalidos.push('Nome (Pessoa Jurídica)');
+        if (!cnpj.value.trim()) camposInvalidos.push('CNPJ (Pessoa Jurídica)');
+        if (!municipioUf.value.trim()) camposInvalidos.push('Município/UF da Sede (Pessoa Jurídica)');
+    }
+
+    // Representante (quando marcado, independente de PF/PJ)
+    if (isRepresentante) {
+        const nomeRep = document.querySelector('input[name="nome_representante"]');
+        const cpfRep = document.getElementById('cpfRepresentante');
+        const estadoCivilRep = document.querySelector('select[name="estado_civil_representante"]');
+        const profissaoRep = document.querySelector('input[name="profissao_representante"]');
+        const ruaRep = document.getElementById('ruaRepresentante');
+        const numeroRep = document.getElementById('numeroRepresentante');
+        const bairroRep = document.getElementById('bairroRepresentante');
+        const cidadeUfRep = document.getElementById('cidadeUfRepresentante');
+
+        if (!nomeRep.value.trim()) camposInvalidos.push('Nome (Representante)');
+        if (!cpfRep.value.trim()) camposInvalidos.push('CPF (Representante)');
+        if (!estadoCivilRep.value.trim()) camposInvalidos.push('Estado Civil (Representante)');
+        if (!profissaoRep.value.trim()) camposInvalidos.push('Profissão (Representante)');
+        if (!ruaRep.value.trim()) camposInvalidos.push('Rua (Representante)');
+        if (!numeroRep.value.trim()) camposInvalidos.push('Número (Representante)');
+        if (!bairroRep.value.trim()) camposInvalidos.push('Bairro (Representante)');
+        if (!cidadeUfRep.value.trim()) camposInvalidos.push('Cidade/UF (Representante)');
+    }
+
+    if (camposInvalidos.length > 0) {
+        e.preventDefault();
+        alert('Preencha os seguintes campos obrigatórios antes de exportar para PDF:\n\n' + camposInvalidos.join('\n'));
+        return;
+    }
+
     alert('Selecione "Salvar como PDF" na janela de impressão para exportar o documento.');
     window.print();
 });
@@ -239,3 +309,36 @@ document.addEventListener('DOMContentLoaded', function() {
         dataAtual.textContent = `${dia} de ${mes} de ${ano}`;
     }
 });
+
+// Alterna a exibição do carimbo de reconhecimento de firma
+document.getElementById('reconhecerFirma').addEventListener('change', function() {
+    const carimbo = document.getElementById('carimboCertifico');
+    if (this.checked) {
+        carimbo.style.display = '';
+    } else {
+        carimbo.style.display = 'none';
+    }
+});
+
+// Inicializa o carimbo conforme o checkbox (caso queira iniciar oculto, remova o checked do HTML)
+document.addEventListener('DOMContentLoaded', function() {
+    const carimbo = document.getElementById('carimboCertifico');
+    const chk = document.getElementById('reconhecerFirma');
+    carimbo.style.display = chk.checked ? '' : 'none';
+});
+
+function marcarCheckboxesNaoSelecionados() {
+    document.querySelectorAll('input[type="checkbox"][name="averbacoes"]').forEach(function(checkbox) {
+        if (!checkbox.checked) {
+            checkbox.closest('label').classList.add('hide-on-print');
+        } else {
+            checkbox.closest('label').classList.remove('hide-on-print');
+        }
+    });
+}
+
+// Garante que a classe seja aplicada antes de imprimir/PDF
+window.addEventListener('beforeprint', marcarCheckboxesNaoSelecionados);
+
+// Também aplica ao exportar PDF via botão, para garantir
+document.getElementById('btnExportarPDF').addEventListener('click', marcarCheckboxesNaoSelecionados);
