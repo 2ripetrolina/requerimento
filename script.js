@@ -3,13 +3,15 @@ document.getElementById('tipoPessoaFisica').addEventListener('change', function(
     const fisica = document.getElementById('dadosPessoaFisica');
     const juridica = document.getElementById('dadosPessoaJuridica');
     const representante = document.getElementById('dadosRepresentante');
-    const chkRepresentante = document.getElementById('possuiRepresentante');
+    const sim = document.getElementById('possuiRepresentanteSim');
+    const nao = document.getElementById('possuiRepresentanteNao');
     if (this.checked) {
         fisica.classList.remove('hidden');
         document.getElementById('tipoPessoaJuridica').checked = false;
         juridica.classList.add('hidden');
-        // Se desmarcar PJ, permite desmarcar representante
-        chkRepresentante.checked = false;
+        // Permite escolher se tem representante
+        sim.checked = false;
+        nao.checked = true;
         representante.classList.add('hidden');
     } else {
         fisica.classList.add('hidden');
@@ -19,19 +21,38 @@ document.getElementById('tipoPessoaJuridica').addEventListener('change', functio
     const fisica = document.getElementById('dadosPessoaFisica');
     const juridica = document.getElementById('dadosPessoaJuridica');
     const representante = document.getElementById('dadosRepresentante');
-    const chkRepresentante = document.getElementById('possuiRepresentante');
+    const sim = document.getElementById('possuiRepresentanteSim');
+    const nao = document.getElementById('possuiRepresentanteNao');
     if (this.checked) {
         juridica.classList.remove('hidden');
         document.getElementById('tipoPessoaFisica').checked = false;
         fisica.classList.add('hidden');
         // Pessoa Jurídica sempre precisa de representante
-        chkRepresentante.checked = true;
+        sim.checked = true;
+        nao.checked = false;
         representante.classList.remove('hidden');
     } else {
         juridica.classList.add('hidden');
         // Permite esconder representante se não for PJ
-        chkRepresentante.checked = false;
+        sim.checked = false;
+        nao.checked = true;
         representante.classList.add('hidden');
+    }
+});
+
+// Alternância de representante (radios)
+document.getElementById('possuiRepresentanteSim').addEventListener('change', function() {
+    // Só mostra se for marcado "Sim" e não for PJ (PJ já mostra sempre)
+    const isPJ = document.getElementById('tipoPessoaJuridica').checked;
+    if (!isPJ) {
+        document.getElementById('dadosRepresentante').classList.toggle('hidden', !this.checked);
+    }
+});
+document.getElementById('possuiRepresentanteNao').addEventListener('change', function() {
+    // Só esconde se não for PJ (PJ já mostra sempre)
+    const isPJ = document.getElementById('tipoPessoaJuridica').checked;
+    if (!isPJ) {
+        document.getElementById('dadosRepresentante').classList.toggle('hidden', this.checked);
     }
 });
 
@@ -50,16 +71,6 @@ document.getElementById('tipoAverbacao').addEventListener('change', function() {
         averbacaoImovel.classList.remove('hidden');
     } else if (tipoAverbacao === 'proprietario') {
         averbacaoProprietario.classList.remove('hidden');
-    }
-});
-
-// Alternância de representante
-document.getElementById('possuiRepresentante').addEventListener('change', function() {
-    const dadosRepresentante = document.getElementById('dadosRepresentante');
-    if (this.checked) {
-        dadosRepresentante.classList.remove('hidden');
-    } else {
-        dadosRepresentante.classList.add('hidden');
     }
 });
 
@@ -194,7 +205,10 @@ if (cnpjInput) {
 document.getElementById('btnExportarPDF').addEventListener('click', function(e) {
     const isFisica = document.getElementById('tipoPessoaFisica').checked;
     const isJuridica = document.getElementById('tipoPessoaJuridica').checked;
-    const isRepresentante = document.getElementById('possuiRepresentante').checked;
+    const isRepresentante = (
+        isJuridica ||
+        document.getElementById('possuiRepresentanteSim').checked
+    );
     let camposInvalidos = [];
 
     // Pessoa Física
