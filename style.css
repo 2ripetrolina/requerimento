@@ -179,11 +179,7 @@ h3, h4 {
         color: #000 !important;
     }
     form {
-        page-break-after: always;
-        padding: 0;
-        margin: 0;
-        max-width: 100%;
-        font-size: 12px !important;
+        page-break-after: avoid !important;
     }
     fieldset {
         margin-bottom: 2px !important;
@@ -219,8 +215,9 @@ h3, h4 {
     .logo {
         margin-bottom: 4px !important;
     }
-    .footer, .instrucao {
-        font-size: 12px !important;
+    .footer,
+    .instrucao {
+        display: none !important;
     }
     label,
     .compact-option,
@@ -352,5 +349,11 @@ h3, h4 {
     input[type="text"]:not([class~="inline-lacuna"]),
     input[type="number"]:not([class~="inline-lacuna"]) {
         width: 100% !important;
+    }
+}
+
+@media print {
+    .no-print {
+        display: none !important;
     }
 }
