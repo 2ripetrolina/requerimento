@@ -40,15 +40,15 @@ input[type="text"], input[type="email"], select {
     font-size: 14px;
     border: 1px solid #666;
     border-radius: 3px;
-    background-color: #22293a !important; /* cor mais escura */
-    color: #fff;
+    background-color: #ffffff !important; /* cor mais escura */
+    color: #000000;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 input[type="text"]:focus, input[type="email"]:focus, select:focus {
     border-color: #00bfff;
     box-shadow: 0 0 0 2px #00bfff44;
     outline: none;
-    background: #22293a !important;
+    background: #ffffff !important;
 }
 .checkbox-group {
     display: flex;
