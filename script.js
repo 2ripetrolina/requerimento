@@ -310,21 +310,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Alterna a exibição do carimbo de reconhecimento de firma
-document.getElementById('reconhecerFirma').addEventListener('change', function() {
-    const carimbo = document.getElementById('carimboCertifico');
-    if (this.checked) {
-        carimbo.style.display = '';
-    } else {
-        carimbo.style.display = 'none';
-    }
-});
-
-// Inicializa o carimbo conforme o checkbox (caso queira iniciar oculto, remova o checked do HTML)
+// Controle dos radios "SIM" e "NÃO" para reconhecimento de firma
 document.addEventListener('DOMContentLoaded', function() {
+    const sim = document.getElementById('reconhecerFirmaSim');
+    const nao = document.getElementById('reconhecerFirmaNao');
+    const atencao = document.getElementById('atencaoReconhecimento');
     const carimbo = document.getElementById('carimboCertifico');
-    const chk = document.getElementById('reconhecerFirma');
-    carimbo.style.display = chk.checked ? '' : 'none';
+    function toggleAtencaoCarimbo() {
+        if (sim.checked) {
+            atencao.style.display = 'none';
+            if (carimbo) carimbo.style.display = '';
+        } else {
+            atencao.style.display = 'inline';
+            if (carimbo) carimbo.style.display = 'none';
+        }
+    }
+    if (sim && nao && atencao) {
+        sim.addEventListener('change', toggleAtencaoCarimbo);
+        nao.addEventListener('change', toggleAtencaoCarimbo);
+        toggleAtencaoCarimbo();
+    }
 });
 
 function marcarCheckboxesNaoSelecionados() {
@@ -342,3 +347,31 @@ window.addEventListener('beforeprint', marcarCheckboxesNaoSelecionados);
 
 // Também aplica ao exportar PDF via botão, para garantir
 document.getElementById('btnExportarPDF').addEventListener('click', marcarCheckboxesNaoSelecionados);
+
+// Sincroniza o checkbox "Outros" e exibe o textarea correto ao trocar o tipo de averbação
+document.addEventListener('DOMContentLoaded', function() {
+    const tipoAverbacao = document.getElementById('tipoAverbacao');
+    const checkboxOutrosMatricula = document.querySelector('#averbacaoMatricula #checkboxOutros');
+    const checkboxOutrosImovel = document.querySelector('#averbacaoImovel #checkboxOutros');
+    const outrosDescricaoImovel = document.querySelector('#averbacaoImovel #outrosDescricaoContainer');
+
+    // Ao trocar para "Matrícula oriunda da 1ª Serventia"
+    tipoAverbacao.addEventListener('change', function() {
+        if (this.value === 'imovel') {
+            if (checkboxOutrosMatricula && checkboxOutrosMatricula.checked) {
+                checkboxOutrosImovel.checked = true;
+                outrosDescricaoImovel.classList.remove('hidden');
+            } else {
+                checkboxOutrosImovel.checked = false;
+                outrosDescricaoImovel.classList.add('hidden');
+            }
+        }
+    });
+
+    // Ao clicar no "Outros" de Imóvel, mostra/esconde o textarea correspondente
+    if (checkboxOutrosImovel) {
+        checkboxOutrosImovel.addEventListener('change', function() {
+            outrosDescricaoImovel.classList.toggle('hidden', !this.checked);
+        });
+    }
+});
