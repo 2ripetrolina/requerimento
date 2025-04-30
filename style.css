@@ -417,3 +417,16 @@ input[type="text"] {
 .input-audio-btn:focus {
     color: #22293a;
 }
+/* Adicione no seu style.css */
+@keyframes logoEntrance {
+    0% { transform: translateX(0); }
+    10% { transform: translateX(-18px); }
+    20% { transform: translateX(18px); }
+    30% { transform: translateX(-12px); }
+    40% { transform: translateX(12px); }
+    50% { transform: translateX(0); }
+    100% { transform: translateX(0); }
+}
+.logo-animate {
+    animation: logoEntrance 1.2s cubic-bezier(.36,.07,.19,.97) both;
+}
