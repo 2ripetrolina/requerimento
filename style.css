@@ -381,3 +381,39 @@ h3, h4 {
 input[type="text"] {
     text-transform: uppercase;
 }
+/* Todos os inputs de texto em caixa alta */
+input[type="text"] {
+    text-transform: uppercase;
+}
+
+.input-audio-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+.input-audio-container input {
+    padding-right: 28px !important; /* espaço para o botão */
+}
+.input-audio-btn {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #888;
+    padding: 0;
+    margin: 0;
+    outline: none;
+}
+/* Não exibir o botão de áudio na impressão/PDF */
+@media print {
+    .input-audio-btn {
+        display: none !important;
+    }
+}
+.input-audio-btn:focus {
+    color: #22293a;
+}
