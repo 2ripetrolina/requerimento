@@ -430,3 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleAtencaoRep();
     }
 });
+
+window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('logoCartorio').classList.add('logo-animate');
+});
