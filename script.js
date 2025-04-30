@@ -1,3 +1,13 @@
+// Função para falar a instrução
+function falarInstrucao(texto) {
+    if ('speechSynthesis' in window) {
+        const utter = new SpeechSynthesisUtterance(texto);
+        utter.lang = 'pt-BR';
+        window.speechSynthesis.speak(utter);
+    } else {
+        alert('Seu navegador não suporta leitura de voz.');
+    }
+}
 // Alternância de Pessoa Física/Jurídica e Representante obrigatoriamente para PJ
 document.getElementById('tipoPessoaFisica').addEventListener('change', function() {
     const fisica = document.getElementById('dadosPessoaFisica');
