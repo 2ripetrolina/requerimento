@@ -430,3 +430,137 @@ input[type="text"] {
 .logo-animate {
     animation: logoEntrance 1.2s cubic-bezier(.36,.07,.19,.97) both;
 }
+/*mudanças na impressão*/
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  form {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    background: none !important;
+    border: none !important;
+  }
+
+  fieldset {
+    padding: 4px !important;
+    margin-bottom: 4px !important;
+    border: 1px solid #000 !important;
+    background: none !important;
+  }
+
+  .form-group,
+  .checkbox-group {
+    gap: 2px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .form-group label,
+  .checkbox-group label {
+    font-size: 11px !important;
+    margin-bottom: 2px !important;
+    width: 48% !important;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  select {
+    font-size: 11px !important;
+    padding: 2px 3px !important;
+    margin: 1px 0 !important;
+    width: 100% !important;
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+    -webkit-text-fill-color: #000 !important;
+  }
+
+  h3, h4 {
+    font-size: 11px !important;
+    margin: 2px 0 !important;
+    text-align: center;
+  }
+
+  .logo,
+  .footer,
+  .instrucao,
+  .input-audio-btn,
+  #btnExportarPDF,
+  .no-print,
+  .reconhecer-firma-label {
+    display: none !important;
+  }
+
+  .assinatura-certifico-container {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 16px !important;
+    justify-content: space-between !important;
+    page-break-inside: avoid !important;
+  }
+
+  .assinatura-certifico-assinatura,
+  .assinatura-certifico-carimbo {
+    flex: 1 1 0 !important;
+    max-width: 48% !important;
+  }
+
+  .inline-lacuna {
+    width: 28px !important;
+    font-size: 10px !important;
+    padding: 0 !important;
+    margin: 0 2px !important;
+    border-bottom: 1px solid #000 !important;
+    background: transparent !important;
+  }
+}
+
+
+@media print {
+  body::before {
+    content: "";
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 70vw;       /* largura grande (40% da viewport) */
+    height: 70vh;      /* altura proporcional */
+    background-image: url('https://raw.githubusercontent.com/dancartorio/intuity/main/logo.png');
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    background-size: contain; /* mantém proporção */
+    opacity: 0.15;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  select,
+  textarea {
+    background: #fff !important;   /* fundo branco */
+    box-shadow: none !important;
+    border-color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
