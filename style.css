@@ -559,7 +559,7 @@ input[type="text"] {
   textarea {
     background: #fff !important;   /* fundo branco */
     box-shadow: none !important;
-    border-color: #ffffff !important;
+    border-color: #a7a7a7 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
